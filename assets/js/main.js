@@ -14,9 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== 'undefined') {
           gsap.from('.hero-badge', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.2 });
           gsap.from('.hero-title-main', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: 0.4 });
-          gsap.from('.hero-subtitle', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.6 });
+          gsap.from('.hero-title-main span', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.6 });
           gsap.from('.hero-description', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.8 });
-          gsap.from('.hero-image', { scale: 1.15, opacity: 0, duration: 1.5, ease: 'power3.out', delay: 0.4 });
+          gsap.from('.hero-image-wrapper', { opacity: 0, y: 35, duration: 1.5, ease: 'power3.out', delay: 0.4 });
+
+          // Refresh ScrollTrigger to recalculate page layout after preloader finishes
+          if (typeof ScrollTrigger !== 'undefined') {
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 600);
+          }
         }
       }, 1000);
     }
@@ -227,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             trigger: parentEl,
             start: 'top 80%',
             toggleActions: 'play none none none',
-            markers: true
+            markers: false
           },
           opacity: 0,
           y: 40,
@@ -238,7 +245,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // About Portrait Parallax Reveal
+    // Hero Portrait Parallax Scroll Animation
+    const heroVisual = document.querySelector('.hero-visual');
+    if (heroVisual) {
+      gsap.from('.hero-image', {
+        scrollTrigger: {
+          trigger: heroVisual,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        },
+        y: 40,
+        scale: 1.1,
+        ease: 'none'
+      });
+    }
+
+    // Story Portrait Parallax Scroll Animation (identical to Hero section)
     const aboutVisual = document.querySelector('.about-visual');
     if (aboutVisual) {
       gsap.from('.about-portrait', {
@@ -248,8 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
           end: 'bottom top',
           scrub: true
         },
+        y: 40,
         scale: 1.1,
-        y: 30
+        ease: 'none'
       });
     }
 
@@ -346,4 +370,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // ==========================================================================
+  // RESTAURANT BRANCHES ACCORDION TOGGLE
+  // ==========================================================================
+  const branchItems = document.querySelectorAll('.vertical-branch-item');
+  branchItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      // Prevent toggling if user clicks a link/button inside (if any)
+      if (e.target.closest('a, button')) return;
+
+      const parentCard = item.closest('.country-column-card');
+      if (parentCard) {
+        const siblings = parentCard.querySelectorAll('.vertical-branch-item');
+        siblings.forEach(sibling => {
+          if (sibling !== item) {
+            sibling.classList.remove('expanded');
+          }
+        });
+      }
+
+      item.classList.toggle('expanded');
+      
+      // Refresh ScrollTrigger to adjust trigger points since content height changed
+      if (typeof ScrollTrigger !== 'undefined') {
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 360); // Match transition duration (0.35s)
+      }
+    });
+  });
 });

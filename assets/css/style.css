@@ -1,44 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800;900&display=swap');
 
 :root {
-  /* OPTION 01 — DARK CHOCOLATE LUXURY (Default) */
-  --bg-color: #1e120c;         /* Rich dark chocolate base */
-  --surface-color: #281a12;    /* Medium chocolate surface */
-  --card-color: #332219;       /* Light chocolate card background */
-  --text-primary: #F4EFEA;     /* Soft warm luxury cream */
-  --text-secondary: #C2B3A8;   /* Muted warm beige-brown */
-  --accent-color: #C8A15A;     /* Warm gold accent */
-  --border-color: rgba(200, 161, 90, 0.15); /* Gold-tinted border */
-  --shadow-color: rgba(0, 0, 0, 0.5);
-  --overlay-bg: rgba(30, 18, 12, 0.96);
+  /* OPTION 01 — DARK ALMOND LUXURY (Default) */
+  --bg-color: #1a1310;         /* Rich roasted dark almond skin base */
+  --surface-color: #261d19;    /* Medium roasted almond surface */
+  --card-color: #332722;       /* Light toasted almond card background */
+  --text-primary: #f2ebe4;     /* Creamy blanched almond cream */
+  --text-secondary: #c9b9af;   /* Soft almond husk beige-gray */
+  --accent-color: #dcb085;     /* Warm toasted golden almond accent */
+  --border-color: rgba(220, 176, 133, 0.15); /* Almond-tinted gold border */
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  --overlay-bg: rgba(26, 19, 16, 0.97);
   
-  /* Glassmorphism with chocolate/gold tint */
-  --glass-bg: rgba(40, 26, 18, 0.7);
-  --glass-border: rgba(200, 161, 90, 0.12);
-  --glass-shadow: rgba(0, 0, 0, 0.3);
-  --glass-glow: rgba(200, 161, 90, 0.18);
+  /* Glassmorphism with almond/toasted gold tint */
+  --glass-bg: rgba(38, 29, 25, 0.7);
+  --glass-border: rgba(220, 176, 133, 0.12);
+  --glass-shadow: rgba(0, 0, 0, 0.4);
+  --glass-glow: rgba(220, 176, 133, 0.18);
   
   --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body.light-theme {
-  /* OPTION 02 — WHITE CHOCOLATE LIGHT LUXURY */
-  --bg-color: #F5EFEB;         /* Creamy white chocolate base */
-  --surface-color: #FDFBFA;    /* Pure milk cream surface */
-  --card-color: #FFFFFF;
-  --text-primary: #2C1A10;     /* Rich dark chocolate text */
-  --text-secondary: #705B50;   /* Muted cocoa text */
-  --accent-color: #C8A15A;
-  --border-color: #E2D3CA;
-  --shadow-color: rgba(44, 26, 16, 0.08);
-  --overlay-bg: rgba(245, 239, 235, 0.96);
+  /* OPTION 02 — LIGHT ALMOND MILK LUXURY */
+  --bg-color: #f7f3ef;         /* Creamy blanched almond milk base */
+  --surface-color: #fcfaf7;    /* Pure light almond cream surface */
+  --card-color: #ffffff;
+  --text-primary: #2d201a;     /* Rich dark toasted almond text */
+  --text-secondary: #7a6358;   /* Muted cocoa toasted shell text */
+  --accent-color: #c59b73;     /* Warm almond gold accent */
+  --border-color: #e5d9d0;
+  --shadow-color: rgba(45, 32, 26, 0.08);
+  --overlay-bg: rgba(247, 243, 239, 0.97);
 
   /* Glassmorphism */
-  --glass-bg: rgba(253, 251, 250, 0.75);
-  --glass-border: rgba(226, 211, 202, 0.8);
-  --glass-shadow: rgba(44, 26, 16, 0.04);
-  --glass-glow: rgba(200, 161, 90, 0.1);
+  --glass-bg: rgba(252, 250, 247, 0.75);
+  --glass-border: rgba(229, 217, 208, 0.8);
+  --glass-shadow: rgba(45, 32, 26, 0.04);
+  --glass-glow: rgba(197, 155, 115, 0.1);
 }
 
 /* Base Reset & Styling */
@@ -87,7 +87,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #222222; /* Always dark for luxury start */
+  background-color: #1a1310; /* Match dark almond theme start */
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -468,18 +468,20 @@ section {
 
 /* SECTION 01 — HERO */
 #home {
-  padding: 0;
+  padding: 120px 0 0 0; /* Clear the fixed header height */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 100vh;
+  height: calc(100vh - 120px); /* Fill the rest of the viewport */
+  min-height: 580px; /* Prevent squeezing on shorter screens */
   gap: 40px;
+  box-sizing: border-box;
 }
 
 .hero-content {
   flex: 1.1;
-  padding: 120px 5% 60px 10%;
+  padding: 40px 5% 100px 10%; /* Increased bottom padding to prevent scroll indicator overlap */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -541,74 +543,83 @@ section {
   z-index: 10;
 }
 
-.hero-image-wrapper {
+.premium-image-frame {
   position: relative;
-  width: 380px;
-  height: 480px;
-  border-radius: 16px;
-  padding: 12px;
+  width: 310px; /* Standard desktop width */
+  height: 390px; /* Standard desktop height */
+  border-radius: 40px; /* Highly rounded corners */
+  padding: 12px; /* Elegant framing gap */
   background: var(--surface-color);
-  border: 1px solid rgba(200, 161, 90, 0.3);
+  border: 2.5px solid var(--accent-color); /* Premium gold frame border */
   box-shadow: 0 30px 60px var(--shadow-color), 
-              inset 0 0 20px rgba(200, 161, 90, 0.1);
+              0 0 40px rgba(220, 176, 133, 0.3), /* Distinct golden light blow */
+              inset 0 0 20px rgba(220, 176, 133, 0.1);
   overflow: visible;
   transition: var(--transition-smooth);
 }
 
-/* Premium Gold Frame Decorative Corners */
-.hero-image-wrapper::before,
-.hero-image-wrapper::after {
+/* Premium Gold Frame Decorative Corner Outline - Symmetrical */
+.premium-image-frame::before {
   content: '';
   position: absolute;
-  width: 30px;
-  height: 30px;
-  border-color: var(--accent-color);
-  border-style: solid;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 1.2px solid rgba(220, 176, 133, 0.28); /* Elegant outer thin border */
+  border-radius: 48px; /* Curve matching outline-offset */
   pointer-events: none;
   z-index: 2;
   transition: var(--transition-smooth);
 }
 
-.hero-image-wrapper::before {
-  top: -5px;
-  left: -5px;
-  border-width: 2px 0 0 2px;
+/* Golden Light Glow Overlay for Premium Aesthetics */
+.premium-image-frame::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border-radius: 28px;
+  background: radial-gradient(circle at 50% 50%, rgba(220, 176, 133, 0.28) 0%, rgba(220, 176, 133, 0.05) 50%, transparent 80%);
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: screen;
+  transition: var(--transition-smooth);
 }
 
-.hero-image-wrapper::after {
-  bottom: -5px;
-  right: -5px;
-  border-width: 0 2px 2px 0;
-}
-
-.hero-image-wrapper:hover {
+.premium-image-frame:hover {
   transform: translateY(-5px);
-  border-color: var(--accent-color);
   box-shadow: 0 40px 80px var(--shadow-color), 
-              0 0 30px var(--glass-glow);
+              0 0 55px rgba(220, 176, 133, 0.45); /* Intense golden blow on hover */
 }
 
-.hero-image-wrapper:hover::before {
-  top: -10px;
-  left: -10px;
+.premium-image-frame:hover::before {
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border-color: rgba(220, 176, 133, 0.55);
+  border-radius: 52px;
 }
 
-.hero-image-wrapper:hover::after {
-  bottom: -10px;
-  right: -10px;
+.premium-image-frame:hover::after {
+  background: radial-gradient(circle at 50% 50%, rgba(220, 176, 133, 0.4) 0%, rgba(220, 176, 133, 0.1) 50%, transparent 80%);
+  transform: scale(1.02);
 }
 
-.hero-image {
+.premium-image-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 30px; /* Highly rounded matching curvature */
   object-position: center top;
   filter: none;
   transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero-image-wrapper:hover .hero-image {
+.premium-image-frame:hover img {
   transform: scale(1.03);
 }
 
@@ -666,20 +677,18 @@ section {
 
 .about-visual {
   position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 30px 60px var(--shadow-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .about-portrait {
   width: 100%;
-  height: auto;
-  display: block;
-  transition: var(--transition-smooth);
-}
-
-.about-visual:hover .about-portrait {
-  transform: scale(1.02);
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  object-position: center top;
 }
 
 .about-details {
@@ -861,8 +870,10 @@ section {
   flex-direction: column;
   gap: 25px;
   box-shadow: 0 15px 30px var(--shadow-color);
-  transition: var(--transition-smooth);
-  height: max-content;
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
 }
 
 .country-column-card:hover {
@@ -896,79 +907,91 @@ section {
 }
 
 .vertical-branch-item {
-  background: var(--card-color);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+  cursor: pointer;
   transition: var(--transition-smooth);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
-.vertical-branch-item:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent-color);
-  box-shadow: 0 10px 20px var(--shadow-color);
+.vertical-branch-item:last-child {
+  border-bottom: none;
 }
 
 .vertical-branch-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
 }
 
 .vertical-branch-name {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
   color: var(--text-primary);
-}
-
-.vertical-branch-tag {
-  background: rgba(200, 161, 90, 0.15);
-  color: var(--accent-color);
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 4px 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: 4px;
+  margin-bottom: 4px;
+  font-weight: 600;
 }
 
 .vertical-branch-city {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--accent-color);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-  margin-top: -6px;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.vertical-branch-tag {
+  font-size: 0.75rem;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.vertical-branch-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.vertical-branch-item.expanded .vertical-branch-details {
+  grid-template-rows: 1fr;
+}
+
+.vertical-branch-details-inner {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 15px;
 }
 
 .vertical-branch-desc {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: var(--text-secondary);
-  line-height: 1.5;
 }
 
 .vertical-branch-meta {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 0.8rem;
+  gap: 8px;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  border-top: 1px solid var(--border-color);
-  padding-top: 10px;
 }
 
 .vertical-branch-meta span {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .vertical-branch-meta i {
   color: var(--accent-color);
-  width: 12px;
+  width: 16px;
+  text-align: center;
 }
 
 /* Riyadh Coming Soon Styling */
@@ -1443,7 +1466,7 @@ footer {
   
   .hero-content {
     flex: none;
-    padding: 140px 0 40px 0;
+    padding: 180px 0 40px 0; /* Increased top padding to fully clear the sticky header on mobile/tablet */
     text-align: center;
     align-items: center;
   }
@@ -1457,9 +1480,28 @@ footer {
     justify-content: center;
   }
 
-  .hero-image-wrapper {
-    width: 300px;
-    height: 380px;
+  .premium-image-frame {
+    width: 270px; /* Smaller tablet width */
+    height: 340px; /* Smaller tablet height */
+    border-radius: 36px; /* Curved corners on tablet/mobile */
+    padding: 10px;
+  }
+  .premium-image-frame::before {
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 42px;
+  }
+  .premium-image-frame:hover::before {
+    top: -9px;
+    left: -9px;
+    right: -9px;
+    bottom: -9px;
+    border-radius: 45px;
+  }
+  .premium-image-frame img {
+    border-radius: 26px;
   }
   
   .scroll-indicator {
@@ -1534,7 +1576,10 @@ footer {
   }
   
   .footer-links {
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
   }
 }
