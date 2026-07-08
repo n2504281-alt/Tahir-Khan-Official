@@ -30,39 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 3000);
 
-  // ==========================================================================
-  // CUSTOM CURSOR
-  // ==========================================================================
-  const cursorDot = document.querySelector('.custom-cursor');
-  const cursorFollower = document.querySelector('.custom-cursor-follower');
-
-  if (cursorDot && cursorFollower) {
-    document.addEventListener('mousemove', (e) => {
-      // Use GSAP for smooth follower tracking if available
-      if (typeof gsap !== 'undefined') {
-        gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0.1 });
-        gsap.to(cursorFollower, { x: e.clientX, y: e.clientY, duration: 0.3 });
-      } else {
-        cursorDot.style.left = e.clientX + 'px';
-        cursorDot.style.top = e.clientY + 'px';
-        cursorFollower.style.left = e.clientX + 'px';
-        cursorFollower.style.top = e.clientY + 'px';
-      }
-    });
-
-    // Expand follower on hovering links, buttons, and clickable items
-    const hoverElements = document.querySelectorAll('a, button, select, input, textarea, .country-header-card, .timeline-node');
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursorDot.classList.add('hovered');
-        cursorFollower.classList.add('hovered');
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorDot.classList.remove('hovered');
-        cursorFollower.classList.remove('hovered');
-      });
-    });
-  }
+  // Custom cursor logic removed
 
   // ==========================================================================
   // LIGHT / DARK THEME TOGGLE
@@ -79,11 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.toggle('light-theme');
       const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
       localStorage.setItem('theme', currentTheme);
-      
-      // Re-trigger custom cursor color updating
-      if (cursorFollower) {
-        cursorFollower.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color');
-      }
+      // Theme changed
     });
   }
 
@@ -151,11 +115,21 @@ document.addEventListener('DOMContentLoaded', () => {
       infinite: false,
     });
 
-    function raf(time) {
-      lenisInstance.raf(time);
+    // Synchronize Lenis scrolling with GSAP ScrollTrigger updates
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      lenisInstance.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenisInstance.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      function raf(time) {
+        lenisInstance.raf(time);
+        requestAnimationFrame(raf);
+      }
       requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
   }
 
   // Smooth scroll click handler for anchor links
@@ -242,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Stagger fade animations
     const triggerStaggers = [
-      { parent: '.cards-grid', target: '.glass-card' }
+      { parent: '.network-grid-container', target: '.country-column-card' }
     ];
 
     triggerStaggers.forEach(stagger => {
@@ -252,7 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
           scrollTrigger: {
             trigger: parentEl,
             start: 'top 80%',
-            toggleActions: 'play none none none'
+            toggleActions: 'play none none none',
+            markers: true
           },
           opacity: 0,
           y: 40,
