@@ -344,6 +344,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ==========================================================================
+  // TIMELINE SWIPE HINT HIDE ON SCROLL
+  // ==========================================================================
+  const timelineScrollWrapper = document.querySelector('.timeline-scroll-wrapper');
+  const timelineSwipeHint = document.querySelector('.timeline-swipe-hint');
+  
+  if (timelineScrollWrapper && timelineSwipeHint) {
+    timelineScrollWrapper.addEventListener('scroll', () => {
+      if (timelineScrollWrapper.scrollLeft > 30) {
+        timelineSwipeHint.classList.add('hidden');
+      } else {
+        timelineSwipeHint.classList.remove('hidden');
+      }
+    }, { passive: true });
+  }
+
   // Obsolete selectors, gallery lightbox, and country selectors removed.
 
   // ==========================================================================
