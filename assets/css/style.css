@@ -618,8 +618,11 @@ section {
 }
 
 .premium-image-frame img {
+  position: absolute;
+  top: -40px; /* Offset the vertical parallax travel range */
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 40px); /* Extra height to prevent top gap when translated by y: 40 */
   object-fit: cover;
   border-radius: inherit; /* Highly rounded matching inner curvature */
   object-position: center top;
