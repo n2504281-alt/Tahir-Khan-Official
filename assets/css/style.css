@@ -697,13 +697,13 @@ section {
 
 .about-portrait {
   position: absolute;
-  top: -20px;
+  top: -10px;
   left: 0;
   width: 100%;
-  height: calc(100% + 20px);
+  height: calc(100% + 10px);
   object-fit: cover;
   border-radius: 30px;
-  object-position: center top;
+  object-position: 35% top;
 }
 
 .about-details {

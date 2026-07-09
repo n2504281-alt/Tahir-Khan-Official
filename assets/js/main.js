@@ -291,8 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
           end: 'bottom top',
           scrub: true
         },
-        y: 20,
-        scale: 1.03,
+        y: 10,
         ease: 'none'
       });
     }
