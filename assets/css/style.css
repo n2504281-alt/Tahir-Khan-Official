@@ -558,8 +558,8 @@ section {
 }
 
 .about-image-wrapper.premium-image-frame {
-  width: 310px; /* Taller frame to ensure head and hair are fully visible */
-  height: 420px;
+  width: 380px; /* Large premium dimensions to show head, hair, and shoulders fully */
+  height: 480px;
 }
 
 .premium-image-inner {
@@ -1504,8 +1504,8 @@ footer {
     padding: 0; /* Fit image exactly inside the border (no gap) */
   }
   .about-image-wrapper.premium-image-frame {
-    width: 270px; /* Taller tablet size */
-    height: 360px;
+    width: 290px; /* Larger tablet dimensions */
+    height: 380px;
   }
   .premium-image-frame::before {
     top: -6px;
