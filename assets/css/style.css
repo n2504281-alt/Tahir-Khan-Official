@@ -558,8 +558,8 @@ section {
 }
 
 .about-image-wrapper.premium-image-frame {
-  width: 340px; /* Square proportions for story section image */
-  height: 340px;
+  width: 310px; /* Taller frame to ensure head and hair are fully visible */
+  height: 420px;
 }
 
 .premium-image-inner {
@@ -705,7 +705,7 @@ section {
   height: 100%;
   object-fit: cover;
   border-radius: inherit;
-  object-position: center center;
+  object-position: center top;
 }
 
 .about-details {
@@ -1504,8 +1504,8 @@ footer {
     padding: 0; /* Fit image exactly inside the border (no gap) */
   }
   .about-image-wrapper.premium-image-frame {
-    width: 280px; /* Square proportions for tablet/mobile */
-    height: 280px;
+    width: 270px; /* Taller tablet size */
+    height: 360px;
   }
   .premium-image-frame::before {
     top: -6px;
