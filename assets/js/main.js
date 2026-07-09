@@ -281,20 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Story Portrait Parallax Scroll Animation (identical to Hero section)
-    const aboutVisual = document.querySelector('.about-visual');
-    if (aboutVisual) {
-      gsap.from('.about-portrait', {
-        scrollTrigger: {
-          trigger: aboutVisual,
-          start: 'top 80%',
-          end: 'bottom top',
-          scrub: true
-        },
-        y: 10,
-        ease: 'none'
-      });
-    }
+    // Story Portrait is now displayed statically in a square frame to prevent head clipping and edge gaps.
 
     // ScrollSpy: Update active nav indicators based on scroll
     const sections = document.querySelectorAll('section');

@@ -557,6 +557,11 @@ section {
   transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.about-image-wrapper.premium-image-frame {
+  width: 340px; /* Square proportions for story section image */
+  height: 340px;
+}
+
 .premium-image-inner {
   width: 100%;
   height: 100%;
@@ -696,14 +701,11 @@ section {
 }
 
 .about-portrait {
-  position: absolute;
-  top: -10px;
-  left: 0;
   width: 100%;
-  height: calc(100% + 10px);
+  height: 100%;
   object-fit: cover;
-  border-radius: 30px;
-  object-position: 35% top;
+  border-radius: inherit;
+  object-position: center center;
 }
 
 .about-details {
@@ -1500,6 +1502,10 @@ footer {
     height: 340px; /* Smaller tablet height */
     border-radius: 36px; /* Curved corners on tablet/mobile */
     padding: 0; /* Fit image exactly inside the border (no gap) */
+  }
+  .about-image-wrapper.premium-image-frame {
+    width: 280px; /* Square proportions for tablet/mobile */
+    height: 280px;
   }
   .premium-image-frame::before {
     top: -6px;
