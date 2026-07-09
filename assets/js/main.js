@@ -4,37 +4,40 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   const preloader = document.querySelector('.preloader');
   
-  window.addEventListener('load', () => {
+  let initialAnimationsTriggered = false;
+  function startInitialAnimations() {
+    if (initialAnimationsTriggered) return;
+    initialAnimationsTriggered = true;
+
     if (preloader) {
-      setTimeout(() => {
-        preloader.style.opacity = '0';
-        preloader.style.visibility = 'hidden';
-        
-        // Trigger initial hero text animations after loader ends
-        if (typeof gsap !== 'undefined') {
-          gsap.from('.hero-badge', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.2 });
-          gsap.from('.hero-title-main', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: 0.4 });
-          gsap.from('.hero-title-main span', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.6 });
-          gsap.from('.hero-description', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.8 });
-          gsap.from('.hero-image-wrapper', { opacity: 0, y: 35, duration: 1.5, ease: 'power3.out', delay: 0.4 });
-
-          // Refresh ScrollTrigger to recalculate page layout after preloader finishes
-          if (typeof ScrollTrigger !== 'undefined') {
-            setTimeout(() => {
-              ScrollTrigger.refresh();
-            }, 600);
-          }
-        }
-      }, 1000);
-    }
-  });
-
-  // Backup in case load event does not fire
-  setTimeout(() => {
-    if (preloader && preloader.style.opacity !== '0') {
       preloader.style.opacity = '0';
       preloader.style.visibility = 'hidden';
     }
+
+    // Trigger initial hero text animations after loader ends
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.hero-badge', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.2 });
+      gsap.from('.hero-title-main', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: 0.4 });
+      gsap.from('.hero-title-main span', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.6 });
+      gsap.from('.hero-description', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.8 });
+      gsap.from('.hero-image-wrapper', { opacity: 0, y: 35, duration: 1.5, ease: 'power3.out', delay: 0.4 });
+
+      // Refresh ScrollTrigger to recalculate page layout after preloader finishes
+      if (typeof ScrollTrigger !== 'undefined') {
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 600);
+      }
+    }
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(startInitialAnimations, 1000);
+  });
+
+  // Backup in case load event does not fire (or already fired before listener registration)
+  setTimeout(() => {
+    startInitialAnimations();
   }, 3000);
 
   // Custom cursor logic removed
