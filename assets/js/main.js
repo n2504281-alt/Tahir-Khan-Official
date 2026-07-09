@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Trigger initial hero text animations after loader ends
-    gsap.from('.hero-badge', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.2 });
-    gsap.from('.hero-title-main', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: 0.4 });
-    gsap.from('.hero-title-main span', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.6 });
-    gsap.from('.hero-description', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.8 });
-    gsap.from('.hero-image-wrapper', { opacity: 0, y: 35, duration: 1.5, ease: 'power3.out', delay: 0.4 });
+    gsap.fromTo('.hero-badge', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.2, clearProps: 'all' });
+    gsap.fromTo('.hero-title-main', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.4, clearProps: 'all' });
+    gsap.fromTo('.hero-title-main span', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.6, clearProps: 'all' });
+    gsap.fromTo('.hero-description', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.8, clearProps: 'all' });
+    gsap.fromTo('.hero-image-wrapper', { opacity: 0, y: 35 }, { opacity: 1, y: 0, duration: 1.5, ease: 'power3.out', delay: 0.4, clearProps: 'all' });
 
     // Initialize ScrollTrigger animations now that GSAP is loaded
     initScrollTrigger();

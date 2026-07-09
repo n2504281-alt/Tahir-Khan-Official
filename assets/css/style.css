@@ -554,7 +554,7 @@ section {
               0 0 40px rgba(220, 176, 133, 0.3), /* Distinct golden light blow */
               inset 0 0 20px rgba(220, 176, 133, 0.1);
   overflow: visible;
-  transition: var(--transition-smooth);
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .premium-image-inner {
@@ -601,6 +601,7 @@ section {
   transform: translateY(-5px);
   box-shadow: 0 40px 80px var(--shadow-color), 
               0 0 55px rgba(220, 176, 133, 0.45); /* Intense golden blow on hover */
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .premium-image-frame:hover::before {
@@ -1495,7 +1496,7 @@ footer {
     width: 270px; /* Smaller tablet width */
     height: 340px; /* Smaller tablet height */
     border-radius: 36px; /* Curved corners on tablet/mobile */
-    padding: 10px;
+    padding: 0; /* Fit image exactly inside the border (no gap) */
   }
   .premium-image-frame::before {
     top: -6px;
@@ -1511,8 +1512,11 @@ footer {
     bottom: -9px;
     border-radius: 45px;
   }
+  .premium-image-inner {
+    border-radius: 33px; /* Fit inside the 36px rounded frame */
+  }
   .premium-image-frame img {
-    border-radius: 26px;
+    border-radius: inherit;
   }
   
   .scroll-indicator {
