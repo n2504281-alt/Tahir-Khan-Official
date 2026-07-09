@@ -547,7 +547,7 @@ section {
   width: 310px; /* Standard desktop width */
   height: 390px; /* Standard desktop height */
   border-radius: 40px; /* Highly rounded corners */
-  padding: 12px; /* Elegant framing gap */
+  padding: 0; /* Fit image exactly inside the border (no gap) */
   background: var(--surface-color);
   border: 2.5px solid var(--accent-color); /* Premium gold frame border */
   box-shadow: 0 30px 60px var(--shadow-color), 
@@ -561,7 +561,7 @@ section {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 30px; /* Highly rounded matching curvature */
+  border-radius: 37px; /* Fit perfectly inside the 2.5px border of 40px rounded frame */
   position: relative;
   z-index: 1;
 }
@@ -585,11 +585,11 @@ section {
 .premium-image-frame::after {
   content: '';
   position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  border-radius: 28px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 37px;
   background: radial-gradient(circle at 50% 50%, rgba(220, 176, 133, 0.28) 0%, rgba(220, 176, 133, 0.05) 50%, transparent 80%);
   pointer-events: none;
   z-index: 3;
@@ -621,7 +621,7 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 30px; /* Highly rounded matching curvature */
+  border-radius: inherit; /* Highly rounded matching inner curvature */
   object-position: center top;
   filter: none;
   transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
