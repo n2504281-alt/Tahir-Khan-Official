@@ -7,6 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let initialAnimationsTriggered = false;
   function startInitialAnimations() {
     if (initialAnimationsTriggered) return;
+    
+    if (typeof gsap === 'undefined') {
+      // If GSAP is not loaded yet, just hide preloader as fallback, but don't set triggered flag
+      if (preloader) {
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+      }
+      return;
+    }
+    
     initialAnimationsTriggered = true;
 
     if (preloader) {
@@ -15,19 +25,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Trigger initial hero text animations after loader ends
-    if (typeof gsap !== 'undefined') {
-      gsap.from('.hero-badge', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.2 });
-      gsap.from('.hero-title-main', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: 0.4 });
-      gsap.from('.hero-title-main span', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.6 });
-      gsap.from('.hero-description', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.8 });
-      gsap.from('.hero-image-wrapper', { opacity: 0, y: 35, duration: 1.5, ease: 'power3.out', delay: 0.4 });
+    gsap.from('.hero-badge', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.2 });
+    gsap.from('.hero-title-main', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: 0.4 });
+    gsap.from('.hero-title-main span', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.6 });
+    gsap.from('.hero-description', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.8 });
+    gsap.from('.hero-image-wrapper', { opacity: 0, y: 35, duration: 1.5, ease: 'power3.out', delay: 0.4 });
 
-      // Refresh ScrollTrigger to recalculate page layout after preloader finishes
-      if (typeof ScrollTrigger !== 'undefined') {
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 600);
-      }
+    // Initialize ScrollTrigger animations now that GSAP is loaded
+    initScrollTrigger();
+
+    // Refresh ScrollTrigger to recalculate page layout after preloader finishes
+    if (typeof ScrollTrigger !== 'undefined') {
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 600);
     }
   }
 
@@ -38,6 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Backup in case load event does not fire (or already fired before listener registration)
   setTimeout(() => {
     startInitialAnimations();
+    // Run scroll spy fallback if GSAP failed to load after 3 seconds
+    setTimeout(runScrollSpyFallback, 100);
   }, 3000);
 
   // Custom cursor logic removed
@@ -168,7 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // GSAP SCROLLTRIGGER REVEALS & PARALLAX
   // ==========================================================================
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  let scrollTriggerInitialized = false;
+  function initScrollTrigger() {
+    if (scrollTriggerInitialized) return;
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    scrollTriggerInitialized = true;
+
     gsap.registerPlugin(ScrollTrigger);
 
     // Parallax background movements
@@ -236,8 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
           scrollTrigger: {
             trigger: parentEl,
             start: 'top 80%',
-            toggleActions: 'play none none none',
-            markers: false
+            toggleActions: 'play none none none'
           },
           opacity: 0,
           y: 40,
@@ -301,8 +318,17 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinksList.forEach(link => link.classList.remove('active'));
       activeLink.classList.add('active');
     }
-  } else {
-    // Simple scroll spy fallback
+  }
+
+  // Try to initialize ScrollTrigger reveals right away (if GSAP loads before DOMContentLoaded)
+  initScrollTrigger();
+
+  // Simple scroll spy fallback
+  let fallbackInitialized = false;
+  function runScrollSpyFallback() {
+    if (scrollTriggerInitialized || fallbackInitialized) return;
+    fallbackInitialized = true;
+    
     const sections = document.querySelectorAll('section');
     window.addEventListener('scroll', () => {
       let currentSection = 'home';
