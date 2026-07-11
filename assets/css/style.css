@@ -306,6 +306,7 @@ header {
   align-items: center;
   z-index: 1000;
   transition: var(--transition-smooth);
+  border-bottom: 1px solid var(--border-color);
 }
 
 header.scrolled {
